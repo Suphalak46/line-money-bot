@@ -2,13 +2,14 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from linebot.exceptions import InvalidSignatureError
+import os
 import re
 
 app = Flask(__name__)
 
 # 🔴 ใส่ค่าของคุณตรงนี้ (จาก LINE Messaging API)
-CHANNEL_ACCESS_TOKEN = "JSogIC9spvzQFeNxA9yWk7q/1+u24Qku/s7UOHFkp3W0o8pJjnQc6xzxuZkXnPS2T82W9MZ7RGGb9IY2OZpd7l28qivBy6nwyvizr3r5bhBtoGxHn6O/TTH2Jk/qDqayeYXGpuHegDCQX9444AgfmgdB04t89/1O/w1cDnyilFU="
-CHANNEL_SECRET = "9a02eb0df9177dca61d48812c1bf4974"
+CHANNEL_ACCESS_TOKEN = os.environ.get("CHANNEL_ACCESS_TOKEN")
+CHANNEL_SECRET = os.environ.get("CHANNEL_SECRET")
 
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -56,4 +57,5 @@ def handle_message(event):
 
 
 if __name__ == "__main__":
+
     app.run(port=5000)
